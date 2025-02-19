@@ -10,6 +10,7 @@ import SwiftUI
 struct ListView: View {
     
     @EnvironmentObject var listViewModel: ListViewModel
+    @AppStorage("currentUser") private var currentUser: String = ""
     
     var body: some View {
         ZStack {
@@ -40,21 +41,30 @@ struct ListView: View {
             }
         }
         .navigationTitle("Todo List 📝")
-//        .navigationBarItems(
-//            leading: EditButton(),
-//            trailing:
-//                NavigationLink("Add", destination: AddView())
-//        )
         .toolbar {
-                    if !listViewModel.items.isEmpty {
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            EditButton()
-                        }
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            NavigationLink("Add", destination: AddView())
-                        }
+            if !listViewModel.items.isEmpty {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    EditButton()
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                HStack {
+                    NavigationLink("Add", destination: AddView())
+                    
+                    Button(action: logout) {
+                        Text("Logout")
+                            .foregroundColor(.red)
                     }
                 }
+            }
+        }
+        .onAppear {
+            listViewModel.loadItems(for: currentUser)  // Load tasks for the logged-in user
+        }
+    }
+    
+    private func logout() {
+        currentUser = ""  // Clears the current user, redirecting to LoginView
     }
 }
 

@@ -11,11 +11,16 @@ import SwiftUI
 struct SwiftUIToDoListApp: App {
     
     @StateObject var listViewModel: ListViewModel = ListViewModel()
-    
+    @AppStorage("currentUser") private var currentUser: String = ""
+
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                ListView()
+                if currentUser.isEmpty {
+                    LoginView()
+                } else {
+                    ListView()
+                }
             }
             .navigationViewStyle(StackNavigationViewStyle())
             .environmentObject(listViewModel)
