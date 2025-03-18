@@ -7,23 +7,6 @@
 
 import SwiftUI
 
-//struct ListRowView: View {
-//
-//    let item: ItemModel
-//
-//    var body: some View {
-//        HStack {
-//            Image(systemName: item.isCompleted ? "checkmark.circle" : "circle")
-//                .foregroundColor(item.isCompleted ? .green : .red)
-//            Text(item.title)
-//            Spacer()
-//        }
-//        .font(.title2)
-//        .padding(.vertical, 8)
-//    }
-//}
-
-
 struct ListRowView: View {
     
     @State private var isEditing = false
@@ -44,7 +27,7 @@ struct ListRowView: View {
             Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
                 .foregroundColor(item.isCompleted ? .green : .red)
                 .onTapGesture {
-                    onToggleCompletion() // Toggle completion state only
+                    onToggleCompletion()
                 }
             
             if isEditing {

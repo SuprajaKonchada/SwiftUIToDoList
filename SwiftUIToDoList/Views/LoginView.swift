@@ -27,8 +27,7 @@ struct LoginView: View {
             SecureField("Password", text: $password)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-            
-           
+        
                 Text(errorMessage)
                     .foregroundColor(.red)
             
